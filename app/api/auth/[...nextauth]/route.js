@@ -31,14 +31,15 @@ const handler = NextAuth({
                 // so everytime it needs to spin up the server and make connection to db 
                 await connectToDB();
 
-
                 //check if a user exists
-                const userExists = User.findOne({
+
+                const userExists =  await User.findOne({
                     email: profile.email
                 });
-                
+
                 // if not create a user
                 if (!userExists){
+                    
                     await User.create({
                         email: profile.email,
                         username: profile.name.replace(" ", "").toLowerCase(),
